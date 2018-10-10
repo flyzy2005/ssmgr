@@ -17,7 +17,7 @@ start() {
         if [ $? -eq 0 ]; then
             ssserver -c /etc/shadowsocks.json -d stop
         fi
-        ps -efww|grep -w 'ssmgr'|grep -v grep|cut -c 9-15|xargs kill -9
+        ps -efww|grep -w 'ssmgr'|grep -v grep|cut -c 9-15|xargs kill -9 > /dev/null 2>&1
         ssserver -m aes-256-cfb -p 1001 -k aqwesdfas --manager-address 127.0.0.1:6001 -d start
         cd shadowsocks-manager-tiny && screen -dmS ssmgr node index.js 127.0.0.1:6001 0.0.0.0:4001 $1
 }
