@@ -3,13 +3,14 @@
 
 install() {
 	service iptables stop
-	yum install python-setuptools && easy_install pip
-	yum install git
+	yum install -y python-setuptools && easy_install pip
+	yum install -y git
 	pip install git+https://github.com/shadowsocks/shadowsocks.git@master
 	ssserver -m aes-256-cfb -p 1001 -k aqwesdfas --manager-address 127.0.0.1:6001 -d start
 	git clone https://github.com/gyteng/shadowsocks-manager-tiny.git
 	curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 	yum install -y nodejs
+	yum install -y screen
 	screen -dmS ssmgr node shadowsocks-manager-tiny/index.js 127.0.0.1:6001 0.0.0.0:4001 $1
 }
 
